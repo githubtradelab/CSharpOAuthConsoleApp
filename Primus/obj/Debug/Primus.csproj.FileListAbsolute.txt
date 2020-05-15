@@ -1,0 +1,8 @@
+D:\projects\PrimusOauthApp\Primus\obj\Debug\Primus.csproj.CoreCompileInputs.cache
+D:\projects\PrimusOauthApp\Primus\bin\Debug\Primus.dll
+D:\projects\PrimusOauthApp\Primus\bin\Debug\Primus.pdb
+D:\projects\PrimusOauthApp\Primus\bin\Debug\Newtonsoft.Json.dll
+D:\projects\PrimusOauthApp\Primus\bin\Debug\websocket-sharp.dll
+D:\projects\PrimusOauthApp\Primus\obj\Debug\Primus.csproj.CopyComplete
+D:\projects\PrimusOauthApp\Primus\obj\Debug\Primus.dll
+D:\projects\PrimusOauthApp\Primus\obj\Debug\Primus.pdb
