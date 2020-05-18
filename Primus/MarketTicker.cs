@@ -56,7 +56,7 @@ namespace Primus
             _isReconnect = reconnect;
             _reconnectionInterval = reconnectInterval;
             _reconnectTries = reconnectTries;
-            _baseUrl = "wss://" + baseurl + "/octopus";
+            _baseUrl = "wss://" + baseurl + "/ws/v1/feeds";
             _webSocket = new WebSocket(_baseUrl);
             _timer = new System.Timers.Timer(_tickInterval);
             _timer.Elapsed += _timer_Elapsed;
