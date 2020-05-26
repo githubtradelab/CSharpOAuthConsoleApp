@@ -64,6 +64,9 @@ namespace PrimusConsoleApp
             _octopusInstance = new Octopus(Global.AuthToken, Global.LoginId, new Uri(base_url).Host);
             _octopusInstance.MarketDataSource.PriceUpdateEvent += MarketDataSource_PriceUpdateEvent;
             _octopusInstance.MarketDataSource.SubscribeOrderTradeUpdates(Global.LoginId, "web");
+            _octopusInstance.MarketDataSource.OrderUpdateEvent += MarketDataSource_OrderUpdateEvent;
+            _octopusInstance.MarketDataSource.TradeUpdateEvent += MarketDataSource_TradeUpdateEvent;
+            
             while (true)
             {
                 Console.WriteLine("## Press following keys to perform activities ## \n " +
@@ -192,16 +195,6 @@ namespace PrimusConsoleApp
                                 Console.WriteLine(response9["data"]);
                             }
                             break;
-
-                        case 10:
-                            _octopusInstance.MarketDataSource.OrderUpdateEvent += MarketDataSource_OrderUpdateEvent;
-                            break;
-
-                        case 11:
-                            _octopusInstance.MarketDataSource.TradeUpdateEvent += MarketDataSource_TradeUpdateEvent;
-                            break;
-
-
                     }
                 }
                 catch(Exception e)
@@ -244,7 +237,7 @@ namespace PrimusConsoleApp
         {
             if (orderDetail.OrderStatus != "ACCEPTED")
             {
-                Console.WriteLine("Client Id " + orderDetail.ClientId + " Product Type " + orderDetail.Product + " Order Type " + orderDetail.OrderType + " Price " + orderDetail.Price + " Avg Price " + orderDetail.AverageTradePrice + " Trigger Price " + orderDetail.TriggerPrice + " Qty " + orderDetail.Quantity + " Disc Qty " + orderDetail.DisclosedQuantity);
+                Console.WriteLine(orderDetail.OrderStatus+  " for Client Id " + orderDetail.ClientId + " Product Type " + orderDetail.Product + " Order Type " + orderDetail.OrderType + " Price " + orderDetail.Price + " Avg Price " + orderDetail.AverageTradePrice + " Trigger Price " + orderDetail.TriggerPrice + " Qty " + orderDetail.Quantity + " Disc Qty " + orderDetail.DisclosedQuantity);
             }
         }
 
