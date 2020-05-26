@@ -63,6 +63,7 @@ namespace PrimusConsoleApp
             Global.LoginId = login.CLientId;
             _octopusInstance = new Octopus(Global.AuthToken, Global.LoginId, new Uri(base_url).Host);
             _octopusInstance.MarketDataSource.PriceUpdateEvent += MarketDataSource_PriceUpdateEvent;
+            _octopusInstance.MarketDataSource.SubscribeOrderTradeUpdates(Global.LoginId, "web");
             while (true)
             {
                 Console.WriteLine("## Press following keys to perform activities ## \n " +
@@ -75,6 +76,8 @@ namespace PrimusConsoleApp
                     "Press 7 to Fetch Script Info \n" +
                     "Press 8 to Subcribe for feeds \n" +
                     "Press 9 to Fetch CashPositions \n" +
+                    "Press 10 to Subcribe orderUpdates \n" +
+                    "Press 11 to Subcribe tradeUpdates \n" +
                     "Press 0 to Exit"
                     );
                 try
@@ -190,6 +193,15 @@ namespace PrimusConsoleApp
                             }
                             break;
 
+                        case 10:
+                            _octopusInstance.MarketDataSource.OrderUpdateEvent += MarketDataSource_OrderUpdateEvent;
+                            break;
+
+                        case 11:
+                            _octopusInstance.MarketDataSource.TradeUpdateEvent += MarketDataSource_TradeUpdateEvent;
+                            break;
+
+
                     }
                 }
                 catch(Exception e)
@@ -221,6 +233,19 @@ namespace PrimusConsoleApp
             var instrumentTuple = new List<Tuple<int, int>>();
             instrumentTuple.Add(Tuple.Create((int)exchange, instrumentToken));
             _octopusInstance.MarketDataSource.SubscribeMktPriceFeed(instrumentTuple);
+        }
+
+        private static void MarketDataSource_TradeUpdateEvent(TradeUpdate tradeUpdate)
+        {
+            Console.WriteLine("Client Id " + tradeUpdate.ClientId + " Product Type " + tradeUpdate.Product + " Order Type " + tradeUpdate.OrderType + " Trade Price " + tradeUpdate.TradePrice + " Traded Qty " + tradeUpdate.TradeQuantity + "Filled Qty " + tradeUpdate.FilledQty);
+        }
+
+        private static void MarketDataSource_OrderUpdateEvent(OrderUpdate orderDetail)
+        {
+            if (orderDetail.OrderStatus != "ACCEPTED")
+            {
+                Console.WriteLine("Client Id " + orderDetail.ClientId + " Product Type " + orderDetail.Product + " Order Type " + orderDetail.OrderType + " Price " + orderDetail.Price + " Avg Price " + orderDetail.AverageTradePrice + " Trigger Price " + orderDetail.TriggerPrice + " Qty " + orderDetail.Quantity + " Disc Qty " + orderDetail.DisclosedQuantity);
+            }
         }
 
         private static void MarketDataSource_PriceUpdateEvent(FullMarketTick feed)
