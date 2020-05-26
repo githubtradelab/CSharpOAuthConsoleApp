@@ -79,8 +79,6 @@ namespace PrimusConsoleApp
                     "Press 7 to Fetch Script Info \n" +
                     "Press 8 to Subcribe for feeds \n" +
                     "Press 9 to Fetch CashPositions \n" +
-                    "Press 10 to Subcribe orderUpdates \n" +
-                    "Press 11 to Subcribe tradeUpdates \n" +
                     "Press 0 to Exit"
                     );
                 try
